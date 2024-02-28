@@ -17,5 +17,8 @@
     </head>
     <body class="antialiased">
         <h1>Home Care Page</h1>
+        <br/>
+        <br/>
+        <a href="/">Kembali</a>
     </body>
 </html>

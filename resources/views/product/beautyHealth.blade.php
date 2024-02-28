@@ -17,5 +17,8 @@
     </head>
     <body class="antialiased">
         <h1>Beauty Health Page</h1>
+        <br/>
+        <br/>
+        <a href="/">Kembali</a>
     </body>
 </html>

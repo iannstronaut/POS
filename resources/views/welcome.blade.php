@@ -17,5 +17,14 @@
     </head>
     <body class="antialiased">
         <h1>Selamat Datang</h1>
+        <a href="/user/1/name/Albyan">User</a><br/><br/>
+        <ul>
+            <li><h1>Product</h1></li>
+            <li><a href="/category/food-beverage">Food & Beverage</a></li>
+            <li><a href="/category/beauty-health">Beauty Health</li>
+            <li><a href="/category/home-care">Home Care</li>
+            <li><a href="/category/baby-kid">Baby Kid</li>
+        </ul><br/>
+        <a href="/penjualan">Penjualan</a><br/>
     </body>
 </html>

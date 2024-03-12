@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\LevelController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\userController;
+use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +22,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/level', [LevelController::class, 'index']);
+
 Route::prefix('category')->group(function () {
     Route::get('/food-beverage', [ProductController::class, 'foodBeverage']);
     Route::get('/beauty-health', [ProductController::class, 'beautyHealth']);
@@ -30,3 +34,4 @@ Route::prefix('category')->group(function () {
 Route::get('/user/{id}/name/{name}', [userController::class, 'user']);
 
 Route::get('/penjualan', [Controller::class, 'penjualan']);
+

@@ -4,7 +4,7 @@
 
 @section('subtitle', 'Welcome')
 @section('content_header_title', 'Home')
-@section('content_header_subtitle', 'Wlcome')
+@section('content_header_subtitle', 'Welcome')
 
 {{-- Custom body: main page content --}}
 

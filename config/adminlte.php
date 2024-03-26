@@ -371,6 +371,12 @@ return [
                 ],
             ],
         ],
+        ['header' => 'Database Management'],
+        [
+            'text' => 'Kategori',
+            'url' => '/kategori',
+            'icon' => 'bi bi-card-list',
+        ],
         ['header' => 'labels'],
         [
             'text' => 'important',

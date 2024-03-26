@@ -37,4 +37,30 @@ class KategoriController extends Controller
         ]);
         return redirect('/kategori');
     }
+
+    public function edit($id){
+        $kat = KategoriModel::find($id);
+        return view('kategori.edit', [ 'd' => $kat]);
+    }
+
+    public function update(Request $req, $id){
+        $kategori = KategoriModel::findOrFail($id);
+        $kategori->kategori_nama = $req->namaKategori;
+        $kategori->kategori_kode = $req->kodeKategori;
+        $kategori->save();
+
+        return redirect('/kategori');
+    }
+
+    public function showdel($id){
+        $kat = KategoriModel::find($id);
+        return view('kategori.delete', [ 'd' => $kat]);
+    }
+
+    public function delete($id){
+        $kategori = KategoriModel::findOrFail($id);
+        $kategori->delete();
+        return redirect('/kategori');
+    }
+    
 }

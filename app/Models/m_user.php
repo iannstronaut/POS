@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\database\Eloquent\Factories\HasFactory;
 use Illuminate\database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class m_user extends Model{
     
@@ -18,4 +19,8 @@ class m_user extends Model{
         'nama',
         'password'
     ];
+
+    public function barang(): HasOne {
+        return $this->hasOne(LevelModel::class, 'level_id', 'level_id');
+    }
 }

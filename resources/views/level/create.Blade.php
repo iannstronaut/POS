@@ -1,37 +1,46 @@
-@extends('adminlte::page')
-@section('title', 'Create')
-@section('content_header')
-<h1>Create Level</h1>
-@stop
+@extends('layout.template')
 @section('content')
-<div class="card card-warning">
-    <div class="card-header">
-      <h3 class="card-title">Level Create Form</h3>
-    </div>
-    <!-- /.card-header -->
-    <div class="card-body">
-        <form>
-        <div class="col">
-          <div class="col-sm-6">
-            <!-- text input -->
-            <div class="form-group">
-              <label>Level Kode</label>
-              <input type="text" class="form-control" placeholder="level_kode">
-            </div>
-            <div class="form-group">
-              <label>Nama Kode</label>
-              <input type="text" class="form-control" placeholder="level_nama">
-            </div>
-            <button type="submit" class="btn btn-primary w-25">Submit</button>
-        </div>
-      </form>
-    </div>
+<div class="card card-outline card-primary">
+  <div class="card-header">
+    <h3 class="card-title">{{ $page->title }}</h3>
+    <div class="card-tools"></div>
   </div>
-@stop
-@section('css')
-{{-- Add here extra stylesheets --}}
-{{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
-@stop
-@section('js')
-<script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
-@stop
+  <div class="card-body">
+    <form method="POST" action="{{ url('level') }}" class="form-horizontal">
+    @csrf
+    <div class="form-group row">
+      <label class="col-1 control-label col-form-label">Level Kode</label>
+      <div class="col-11">
+        <input type="text" class="form-control" id="level_kode" name="level_kode"
+        value="{{ old('level_kode') }}" required>
+        @error('level_kode')
+          <small class="form-text text-danger">{{ $message }}</small>
+        @enderror
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-1 control-label col-form-label">Level Nama</label>
+      <div class="col-11">
+        <input type="text" class="form-control" id="level_nama" name="level_nama"
+        value="{{ old('level_nama') }}" required>
+        @error('level_nama')
+          <small class="form-text text-danger">{{ $message }}</small>
+        @enderror
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-1 control-label col-form-label"></label>
+      <div class="col-11">
+        <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+        <a class="btn btn-sm btn-default ml-1" href="{{ url('level') 
+        }}">Kembali</a>
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+@endsection
+@push('css')
+@endpush
+@push('js')
+@endpush

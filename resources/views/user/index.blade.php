@@ -1,45 +1,96 @@
-@extends('user/template')
+@extends('layout/template')
 @section('content')
-<div class="row mt-5 mb-5">
-    <div class="col-lg-12 margin-tb">
-        <div class="float-left">
-            <h2>CRUD User</h2>
+    <div class="card card-outline card-primary">
+        <div class="card-header">
+            <h3 class="card-title">{{ $page->title }}</h3>
+            <div class="card-tools">
+                <a class="btn btn-sm btn-primary mt-1" href="{{ url('user/create') 
+                }}">Tambah</a>
+            </div>
         </div>
-        <div class="float-right">
-            <a href="{{ route('user.create') }}" class="btn btn-success">Input User</a>
+        <div class="card-body">
+            @if (session('success'))
+                <div class="alert alert-success">{{ session('success')}}</div>
+            @endif
+            @if (session('error'))
+                <div class="alert alert-danger">{{ session('error')}}</div>
+            @endif
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-1 control-label col-form-label">Filter:</label>
+                        <div class="col-3">
+                            <select name="level_id" id="level_id" class="form-control" required>
+                                <option value="">--Semua--</option>
+                                @foreach ($level as $item)
+                                    <option value="{{ $item->level_id}}">{{ $item->level_nama}}</option>
+                                @endforeach
+                            </select>
+                            <small class="form-text text-muted">Level Pengguna</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped table-hover table-sm"
+            id="table_user">
+                <thead>
+                    <tr><th>ID</th><th>Username</th><th>Nama</th><th>Level 
+                    Pengguna</th><th>Aksi</th></tr>
+                </thead>
+            </table>
         </div>
     </div>
-</div>
-@if ($message = Session::get('success'))
-<div class="alert alert-success">
-    <p>{{ $message }}</p>
-</div>
-@endif
-<table class="table table-bordered">
-    <tr>
-        <th class="text-center" width="20px">User Id</th>
-        <th class="text-center" width="150px">Level Id</th>
-        <th class="text-center" width="200px">Username</th>
-        <th class="text-center" width="200px">Nama</th>
-        <th class="text-center" width="150px">Password</th>
-    </tr>
-    @foreach ( $useri as $m_user )
-    <tr>
-        <td>{{ $m_user->user_id }}</td>
-        <td>{{ $m_user->level_id }}</td>
-        <td>{{ $m_user->username }}</td>
-        <td>{{ $m_user->nama }}</td>
-        <td>{{ $m_user->password }}</td>
-        <td>
-            <form method="POST" action="{{ route('user.destroy', $m_user->user_id)}}">
-                <a class="btn btn-info btn-sm" href="{{ route('user.show', $m_user->user_id )}}">Show</a>
-                <a class="btn btn-primary btn-sm" href="{{ route('user.edit', $m_user->user_id )}}">Edit</a>
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda Yakin Ingin Mengahpus Data Ini?')">Delete</button>
-            </form>
-        </td>
-    </tr>
-    @endforeach
-</table>
 @endsection
+
+@push('css')
+@endpush
+
+@push('js')
+<script>
+        $(document).ready(function() {
+            var dataUser = $('#table_user').DataTable({
+            serverSide: true,
+            ajax: {
+                "url": "{{ url('user/list') }}",
+                "dataType": "json",
+                "type": "POST",
+                "data": function(d){
+                    d.level_id = $('#level_id').val();
+                }
+            },
+            columns: [
+                {
+                data: "DT_RowIndex", 
+                className: "text-center",
+                orderable: false,
+                searchable: false
+                },{
+                data: "username", 
+                className: "",
+                orderable: true, 
+                searchable: true 
+                },{
+                data: "nama", 
+                className: "",
+                orderable: true, 
+                searchable: true 
+                },{
+                data: "level.level_nama", 
+                className: "",
+                orderable: false,
+                searchable: false
+                },{
+                data: "aksi", 
+                className: "",
+                orderable: false, 
+                searchable: false 
+                }
+            ]
+        });
+
+        $('#level_id').on('change', function(){
+            dataUser.ajax.reload();
+        });
+    });
+</script>
+@endpush

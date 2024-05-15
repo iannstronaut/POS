@@ -6,7 +6,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LevController;
-use App\Http\Controllers\LevelController;
+use App\Http\Controllers\Api\LevelController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\POSController;
 use App\Http\Controllers\ProductController;
@@ -54,16 +54,16 @@ Route::group(['prefix' => 'kategori'], function(){
 
 
 // Route::resource('user', POSController::class);
-Route::group(['prefix' => 'level'], function(){
-    Route::get('/', [LevController::class, 'index']);
-    Route::get('/create', [LevController::class, 'create']);
-    Route::post('/', [LevController::class, 'store']);
-    Route::post('/list', [LevController::class, 'list']);
-    Route::get('/{id}', [LevController::class, 'show']);
-    Route::get('/{id}/edit', [LevController::class, 'edit']);
-    Route::put('/{id}', [LevController::class, 'update']);
-    Route::delete('/{id}', [LevController::class, 'destroy']);
-});
+// Route::group(['prefix' => 'level'], function(){
+//     Route::get('/', [LevController::class, 'index']);
+//     Route::get('/create', [LevController::class, 'create']);
+//     Route::post('/', [LevController::class, 'store']);
+//     Route::post('/list', [LevController::class, 'list']);
+//     Route::get('/{id}', [LevController::class, 'show']);
+//     Route::get('/{id}/edit', [LevController::class, 'edit']);
+//     Route::put('/{id}', [LevController::class, 'update']);
+//     Route::delete('/{id}', [LevController::class, 'destroy']);
+// });
 
 Route::group(['prefix' => 'barang'], function(){
     Route::get('/', [BarangController::class, 'index']);
@@ -101,3 +101,9 @@ Route::group(['middleware' => ['auth']], function(){
         Route::resource('manager', ManagerController::class);
     });
 });
+
+Route::get('levels', [LevelController::class, 'index']);
+Route::post('levels', [LevelController::class, 'store']);
+Route::get('levels/{level}', [LevelController::class, 'show']);
+Route::put('levels/{level}', [LevelController::class, 'update']);
+Route::delete('levels/{level}', [LevelController::class, 'destroy']);
